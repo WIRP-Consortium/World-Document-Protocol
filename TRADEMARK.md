@@ -1,11 +1,9 @@
-WDDD & WD3 are trademark of WIRP & Rohith
+WDDD and WD3 are names, logos, and associated branding elements representing software and related projects created and maintained under the direction of WIRP & Rohith. These marks serve as identifiers of origin and quality assurance for the software ecosystem associated with them.
 
-This Trademark grants permission to use the name,logo or branding 
-for endorsement,promotion, or to imply affiliation without prior written permission
+While the underlying software may be made available under open-source or other software licenses that permit use, modification, and distribution of the code, such permissions do not extend to trademark rights. The trademarks WDDD and WD3 exist independently of the software license and are intended to protect the integrity, reputation, and public trust of the project.
 
-you may refer to the software as WDDD or WD3 in an accurate manner,
-but you may not use the name or logo for derived products,forks, or commercial offering in a way that suggests they are official or approved
+The purpose of this Trademark Policy is to ensure that the WDDD and WD3 marks are used in a manner that is accurate, fair, and non-misleading. It is intended to prevent confusion regarding official endorsement, affiliation, or origin of derivative works, forks, or third-party distributions.
 
-This Software can Modify,Copy,Merge,Publish,Distribute,Sublicense, and/or sell
+This policy allows referential use of the trademarks in factual contexts, such as documentation, compatibility descriptions, academic discussion, and commentary, while restricting uses that could imply sponsorship, approval, or official association without prior written permission.
 
-All Trademark Rights are Reserved to WIRP & Rohith
+All rights in the WDDD and WD3 trademarks remain exclusively reserved by WIRP & Rohith. Any use of these marks must comply with the terms set forth in this policy and applicable intellectual property laws.
