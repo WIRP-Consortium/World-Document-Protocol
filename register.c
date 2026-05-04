@@ -12,10 +12,6 @@
 #define MAX_NAME 255
 #define MAX_NODES 10
 
-/* =====================================================
-   PURE SHA-256
-===================================================== */
-
 typedef struct {
     uint8_t data[64];
     uint32_t datalen;
@@ -23,7 +19,6 @@ typedef struct {
     uint32_t state[8];
 } SHA256_CTX;
 
-/* (same constants as before, shortened here for space) */
 static const uint32_t k[64] = {
 0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,
 0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
@@ -121,10 +116,6 @@ void sha256_final(SHA256_CTX *ctx,uint8_t hash[]){
             hash[i+j*4]=(ctx->state[j]>>(24-i*8))&0xff;
 }
 
-/* =====================================================
-   STRUCTURE
-===================================================== */
-
 typedef struct {
     uint8_t protocol;
     unsigned char record_id[16];
@@ -148,10 +139,6 @@ typedef struct {
     uint64_t a,b,c,d;
 } Key256;
 
-/* =====================================================
-   RANDOM KEY
-===================================================== */
-
 Key256 generate_random_key(){
     Key256 k;
     k.a=((uint64_t)rand()<<32)^rand();
@@ -160,10 +147,6 @@ Key256 generate_random_key(){
     k.d=((uint64_t)rand()<<32)^rand();
     return k;
 }
-
-/* =====================================================
-   DUPLICATE CHECK
-===================================================== */
 
 int local_exist(const char *name){
     FILE *f=fopen("data/chain.dat","rb");
@@ -195,10 +178,6 @@ int local_exist(const char *name){
     return 0;
 }
 
-/* =====================================================
-   NETWORK CHECK
-===================================================== */
-
 int query_node(const char *ip,const char *name){
     WSADATA wsa;
     WSAStartup(MAKEWORD(2,2),&wsa);
@@ -226,10 +205,6 @@ int query_node(const char *ip,const char *name){
 
     return strcmp(r,"YES")==0;
 }
-
-/* =====================================================
-   MAIN
-===================================================== */
 
 int main(){
     srand(time(NULL));
