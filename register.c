@@ -117,21 +117,20 @@ void sha256_update(SHA256_CTX *ctx,const uint8_t data[],size_t len){
 
 void sha256_final(SHA256_CTX *ctx,uint8_t hash[]){
     uint32_t i=ctx->datalen;
+
     ctx->data[i++]=0x80;
     while(i<56) ctx->data[i++]=0;
 
-    ctx->bitlen+=ctx->datalen*8;
+    ctx->bitlen += ctx->datalen * 8;
 
-    ctx->data[63]=ctx->bitlen;
-    ctx->data[62]=ctx->bitlen>>8;
-    ctx->data[61]=ctx->bitlen>>16;
-    ctx->data[60]=ctx->bitlen>>24;
+    for(i=0;i<8;i++)
+        ctx->data[63-i]=(ctx->bitlen>>(8*i))&0xff;
 
     sha256_transform(ctx,ctx->data);
 
     for(i=0;i<4;i++)
         for(int j=0;j<8;j++)
-            hash[i+j*4]=(ctx->state[j]>>(24-i*8))&0xff;
+            hash[i+(j*4)]=(ctx->state[j]>>(24-i*8))&0xff;
 }
 
 typedef struct {
@@ -144,18 +143,18 @@ typedef struct {
     uint8_t extension_len;
     char extension[16];
 
-    uint8_t redirect_hash_len;
-    char redirect_hash[32];
-
     uint32_t timestamp;
 
     char public_key[128];
     char signature[128];
+
+    char redirect_hash[32];
 } Record;
 
 typedef struct {
     uint64_t a,b,c,d;
 } Key256;
+
 
 Key256 generate_random_key(){
     Key256 k;
@@ -205,11 +204,11 @@ int query_node(const char *ip,const char *name){
     struct sockaddr_in a;
     a.sin_family=AF_INET;
     a.sin_port=htons(PORT);
-
-    // FIXED LINE:
     a.sin_addr.s_addr = inet_addr(ip);
 
     if(connect(s,(struct sockaddr*)&a,sizeof(a))<0){
+        closesocket(s);
+        WSACleanup();
         return 0;
     }
 
@@ -227,7 +226,7 @@ int query_node(const char *ip,const char *name){
 int main(){
     srand(time(NULL));
 
-    Record r;
+    Record r = {0};
     Key256 pub=generate_random_key();
 
     char *nodes[MAX_NODES]={"127.0.0.1"};
@@ -235,6 +234,8 @@ int main(){
     printf("Registry Name: ");
     fgets(r.registry_name,MAX_NAME,stdin);
     r.registry_name[strcspn(r.registry_name,"\n")]=0;
+
+    r.name_len = strlen(r.registry_name);
 
     if(local_exist(r.registry_name)){
         printf("Duplicate Local\n");
@@ -259,7 +260,8 @@ int main(){
     }
 
     r.extension_len=strlen(r.extension);
-    r.timestamp=time(NULL);
+    r.timestamp=(uint32_t)time(NULL);
+    r.protocol=1;
 
     snprintf(r.public_key,sizeof(r.public_key),
         "%016llx%016llx%016llx%016llx",
@@ -281,6 +283,10 @@ int main(){
     memcpy(r.redirect_hash,hash,32);
 
     FILE *f=fopen("data/chain.dat","ab");
+    if(!f){
+        printf("File error\n");
+        return 1;
+    }
 
     fwrite(&r.protocol,1,1,f);
     fwrite(r.record_id,1,16,f);
