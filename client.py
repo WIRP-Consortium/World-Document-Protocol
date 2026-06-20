@@ -282,7 +282,7 @@ class EditApp(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Host your Document")
+        self.setWindowTitle("Client")
         self.resize(1280, 720)
 
         central = QWidget()
