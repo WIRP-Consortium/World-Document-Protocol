@@ -1,4 +1,4 @@
-# Project Name
+# WD3\GlobalBytes
 # Copyright (C) 2026 Rohith Poyyara & WIRP
 #
 # This program is free software: you can redistribute it and/or modify
