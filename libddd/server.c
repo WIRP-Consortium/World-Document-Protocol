@@ -223,3 +223,4 @@ int main() {
     close(server_fd);
     return 0;
 }
+//gcc server.c -o server -lpthread -lssl -lcrypto
