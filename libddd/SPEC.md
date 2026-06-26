@@ -4,7 +4,7 @@ Specification of Internet Data Transmission Protocol
 IDTP ERROR CODES
 ================
 
-101  NO CHECKSUM
+101  NO CHECKSUM :
 Missing CHK header
 
 
