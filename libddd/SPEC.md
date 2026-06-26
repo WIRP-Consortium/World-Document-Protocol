@@ -180,6 +180,8 @@ Can contain:
 - file content
 - response data
 
+=========================================
+
 ## IDTP Error Codes
 
 | Code | Error | Description |
