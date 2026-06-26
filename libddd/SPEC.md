@@ -1,4 +1,5 @@
-##Specification of Internet Data Transmission Protocol
+Specification of Internet Data Transmission Protocol
+=============
 
 IDTP ERROR CODES
 ================
