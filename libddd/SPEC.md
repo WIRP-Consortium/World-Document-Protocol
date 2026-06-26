@@ -122,3 +122,9 @@ Possible causes:
 Cryptographic decryption failed.
 
 Algorithms:
+
+Possible causes:
+
+- Invalid encrypted data
+- Wrong key
+- Corrupted ciphertext
